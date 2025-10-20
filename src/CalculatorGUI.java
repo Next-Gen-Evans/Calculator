@@ -32,7 +32,6 @@ public class CalculatorGUI implements ActionListener, KeyListener {
         textField.setHorizontalAlignment(SwingConstants.RIGHT);
         textField.addKeyListener(this);
 
-        // Operator Buttons
         addButton = new JButton("+");
         subButton = new JButton("-");
         mulButton = new JButton("*");
@@ -61,16 +60,23 @@ public class CalculatorGUI implements ActionListener, KeyListener {
             functionButtons[i].addActionListener(this);
             functionButtons[i].setFont(myFont);
             functionButtons[i].setFocusable(false);
+
+            // Orange for operators, grey for others
             if (i <= 5 || i == 8 || i == 9 || i == 10) {
-                // Operators - Orange
-                functionButtons[i].setBackground(new Color(255, 140, 0));
+                functionButtons[i].setBackground(new Color(255, 140, 0)); // Orange
                 functionButtons[i].setForeground(Color.WHITE);
             } else {
-                // Control buttons - Grey
                 functionButtons[i].setBackground(Color.DARK_GRAY);
-                functionButtons[i].setForeground(Color.WHITE);
+                functionButtons[i].setForeground(Color.GRAY);
             }
         }
+
+        // Blue buttons for DEL and CLR
+        delButton.setBackground(new Color(0, 102, 204)); // Bright blue
+        delButton.setForeground(Color.WHITE);
+
+        clrButton.setBackground(new Color(0, 102, 204)); // Bright blue
+        clrButton.setForeground(Color.WHITE);
 
         for (int i = 0; i < 10; i++) {
             numberButtons[i] = new JButton(String.valueOf(i));
@@ -87,7 +93,6 @@ public class CalculatorGUI implements ActionListener, KeyListener {
         panel.setBounds(50, 100, 300, 350);
         panel.setLayout(new GridLayout(5, 4, 10, 10));
 
-        // Adding buttons to panel
         panel.add(sqrtButton);
         panel.add(percentButton);
         panel.add(powerButton);
@@ -112,7 +117,7 @@ public class CalculatorGUI implements ActionListener, KeyListener {
         frame.add(delButton);
         frame.add(clrButton);
         frame.add(textField);
-        frame.getContentPane().setBackground(new Color(30, 30, 30)); // dark background
+        frame.getContentPane().setBackground(new Color(30, 30, 30));
         frame.setVisible(true);
     }
 
@@ -197,7 +202,6 @@ public class CalculatorGUI implements ActionListener, KeyListener {
         }
     }
 
-    // Keyboard support
     @Override
     public void keyTyped(KeyEvent e) {
     }
@@ -211,7 +215,7 @@ public class CalculatorGUI implements ActionListener, KeyListener {
             num1 = Double.parseDouble(textField.getText());
             operator = key;
             textField.setText("");
-        } else if (key == '\n') { // Enter key
+        } else if (key == '\n') {
             num2 = Double.parseDouble(textField.getText());
             switch (operator) {
                 case '+':
