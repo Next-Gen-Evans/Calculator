@@ -11,9 +11,9 @@ public class CalculatorGUI implements ActionListener, KeyListener {
     JButton addButton, subButton, mulButton, divButton;
     JButton decButton, equButton, delButton, clrButton;
     JButton sqrtButton, percentButton, powerButton;
-    JPanel panel;
+    JPanel panel, topPanel;
 
-    Font myFont = new Font("Arial", Font.BOLD, 20);
+    Font myFont = new Font("Poppins", Font.BOLD, 20);
 
     double num1 = 0, num2 = 0, result = 0;
     char operator;
@@ -21,17 +21,21 @@ public class CalculatorGUI implements ActionListener, KeyListener {
     public CalculatorGUI() {
         frame = new JFrame("Modern Java Calculator");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(420, 580);
+        frame.setSize(420, 600);
         frame.setLayout(null);
+        frame.getContentPane().setBackground(new Color(25, 25, 25));
 
+        // Text Field
         textField = new JTextField();
         textField.setBounds(50, 25, 300, 60);
         textField.setFont(new Font("Consolas", Font.BOLD, 26));
         textField.setEditable(false);
-        textField.setBackground(Color.WHITE);
+        textField.setBackground(new Color(240, 240, 240));
         textField.setHorizontalAlignment(SwingConstants.RIGHT);
+        textField.setBorder(BorderFactory.createLineBorder(new Color(255, 140, 0), 2));
         textField.addKeyListener(this);
 
+        // Function Buttons
         addButton = new JButton("+");
         subButton = new JButton("-");
         mulButton = new JButton("*");
@@ -56,42 +60,63 @@ public class CalculatorGUI implements ActionListener, KeyListener {
         functionButtons[9] = percentButton;
         functionButtons[10] = powerButton;
 
-        for (int i = 0; i < 11; i++) {
+        // Style function buttons
+        for (int i = 0; i < functionButtons.length; i++) {
             functionButtons[i].addActionListener(this);
             functionButtons[i].setFont(myFont);
             functionButtons[i].setFocusable(false);
+            functionButtons[i].setBorder(BorderFactory.createLineBorder(new Color(40, 40, 40)));
 
-            // Orange for operators, grey for others
             if (i <= 5 || i == 8 || i == 9 || i == 10) {
                 functionButtons[i].setBackground(new Color(255, 140, 0)); // Orange
                 functionButtons[i].setForeground(Color.WHITE);
             } else {
                 functionButtons[i].setBackground(Color.DARK_GRAY);
-                functionButtons[i].setForeground(Color.GRAY);
+                functionButtons[i].setForeground(Color.LIGHT_GRAY);
             }
         }
 
         // Blue buttons for DEL and CLR
-        delButton.setBackground(new Color(0, 102, 204)); // Bright blue
+        delButton.setBackground(new Color(0, 102, 204));
+        clrButton.setBackground(new Color(0, 102, 204));
         delButton.setForeground(Color.WHITE);
-
-        clrButton.setBackground(new Color(0, 102, 204)); // Bright blue
         clrButton.setForeground(Color.WHITE);
 
+        // Number Buttons
         for (int i = 0; i < 10; i++) {
+            final int index = i;
             numberButtons[i] = new JButton(String.valueOf(i));
             numberButtons[i].addActionListener(this);
             numberButtons[i].setFont(myFont);
             numberButtons[i].setFocusable(false);
-            numberButtons[i].setBackground(Color.LIGHT_GRAY);
+            numberButtons[i].setBackground(new Color(60, 60, 60));
+            numberButtons[i].setForeground(Color.WHITE);
+
+            // Hover effect
+            numberButtons[i].addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseEntered(java.awt.event.MouseEvent evt) {
+                    numberButtons[index].setBackground(new Color(80, 80, 80));
+                }
+
+                public void mouseExited(java.awt.event.MouseEvent evt) {
+                    numberButtons[index].setBackground(new Color(60, 60, 60));
+                }
+            });
         }
 
-        delButton.setBounds(50, 460, 145, 50);
-        clrButton.setBounds(205, 460, 145, 50);
+        // Top Panel for DEL and CLR
+        topPanel = new JPanel();
+        topPanel.setBounds(50, 95, 300, 50);
+        topPanel.setLayout(new GridLayout(1, 2, 10, 10));
+        topPanel.setBackground(new Color(25, 25, 25));
+        topPanel.add(delButton);
+        topPanel.add(clrButton);
 
+        // Main Panel
         panel = new JPanel();
-        panel.setBounds(50, 100, 300, 350);
+        panel.setBounds(50, 160, 300, 370);
         panel.setLayout(new GridLayout(5, 4, 10, 10));
+        panel.setBackground(new Color(25, 25, 25));
 
         panel.add(sqrtButton);
         panel.add(percentButton);
@@ -113,11 +138,9 @@ public class CalculatorGUI implements ActionListener, KeyListener {
         panel.add(numberButtons[0]);
         panel.add(equButton);
 
+        frame.add(topPanel);
         frame.add(panel);
-        frame.add(delButton);
-        frame.add(clrButton);
         frame.add(textField);
-        frame.getContentPane().setBackground(new Color(30, 30, 30));
         frame.setVisible(true);
     }
 
@@ -129,10 +152,8 @@ public class CalculatorGUI implements ActionListener, KeyListener {
             }
         }
 
-        if (e.getSource() == decButton) {
+        if (e.getSource() == decButton)
             textField.setText(textField.getText().concat("."));
-        }
-
         if (e.getSource() == addButton) {
             num1 = Double.parseDouble(textField.getText());
             operator = '+';
@@ -158,6 +179,7 @@ public class CalculatorGUI implements ActionListener, KeyListener {
             operator = '^';
             textField.setText("");
         }
+
         if (e.getSource() == sqrtButton) {
             double value = Double.parseDouble(textField.getText());
             textField.setText(String.valueOf(Math.sqrt(value)));
@@ -190,15 +212,12 @@ public class CalculatorGUI implements ActionListener, KeyListener {
             num1 = result;
         }
 
-        if (e.getSource() == clrButton) {
+        if (e.getSource() == clrButton)
             textField.setText("");
-        }
-
         if (e.getSource() == delButton) {
             String text = textField.getText();
-            if (text.length() > 0) {
+            if (text.length() > 0)
                 textField.setText(text.substring(0, text.length() - 1));
-            }
         }
     }
 
@@ -208,40 +227,6 @@ public class CalculatorGUI implements ActionListener, KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        char key = e.getKeyChar();
-        if (Character.isDigit(key) || key == '.') {
-            textField.setText(textField.getText() + key);
-        } else if (key == '+' || key == '-' || key == '*' || key == '/' || key == '^') {
-            num1 = Double.parseDouble(textField.getText());
-            operator = key;
-            textField.setText("");
-        } else if (key == '\n') {
-            num2 = Double.parseDouble(textField.getText());
-            switch (operator) {
-                case '+':
-                    result = num1 + num2;
-                    break;
-                case '-':
-                    result = num1 - num2;
-                    break;
-                case '*':
-                    result = num1 * num2;
-                    break;
-                case '/':
-                    result = num1 / num2;
-                    break;
-                case '^':
-                    result = Math.pow(num1, num2);
-                    break;
-            }
-            textField.setText(String.valueOf(result));
-            num1 = result;
-        } else if (key == KeyEvent.VK_BACK_SPACE) {
-            String text = textField.getText();
-            if (text.length() > 0) {
-                textField.setText(text.substring(0, text.length() - 1));
-            }
-        }
     }
 
     @Override
