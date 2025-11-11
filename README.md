@@ -1,18 +1,53 @@
-## Getting Started
+# 🧮 Modern Java Calculator
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+A stylish and functional calculator built with **Java Swing**, designed for simplicity, smooth visuals, and real-time expression evaluation.  
+It displays the full math expression (e.g., `8*8`) and shows the result (`64`) after pressing `=`.
 
-## Folder Structure
+---
 
-The workspace contains two folders by default, where:
+## 🚀 Features
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+- Clean modern UI with **dark theme** and **orange highlights**  
+- Displays full expressions before evaluation  
+- Supports addition, subtraction, multiplication, division, powers, square root, and percentages  
+- Real-time delete (❌) and clear functionality  
+- Uses a **JavaScript engine** for accurate math evaluation  
+- Keyboard input support (numbers and operators)
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+---
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+## 🧱 Technologies Used
 
-## Dependency Management
+- **Java Swing** – for GUI  
+- **AWT Event Handling** – for button interactions  
+- **JavaScript Engine** – for evaluating expressions dynamically  
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+---
+
+## ▶️ How to Run
+
+1. Clone or download the project folder.  
+2. Open it in **VS Code** or **IntelliJ IDEA**.  
+3. Compile and run:
+   ```bash
+   javac CalculatorGUI.java
+   java CalculatorGUI
+   ```
+
+## 📸 Preview
+
+🟧 Displays expression → 8*8  
+➡️ Press "=" → 64
+
+---
+
+## 💡 Future Enhancements
+
+- Add keyboard “Enter” key support for `=`  
+- Add history of calculations  
+- Add light/dark mode toggle  
+- Add scientific functions (sin, cos, log, etc.)
+
+---
+
+**Author:** Evans Mutharimi Buongo
