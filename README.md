@@ -52,7 +52,7 @@ It displays the full math expression (e.g., `8*8`) and shows the result (`64`) a
 
 **Author:** Evans Mutharimi Buongo
 ---
-If you like the project you can leave a 🌟
+If you like the project you can leave a 🌟!
 
 <div align="center">
 
